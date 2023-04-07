@@ -17,12 +17,23 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
 });
 
+// Import de Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+
 // Routes Import
 const userRoutes = require("./routes/user");
 app.use(userRoutes);
 
+const userTrips = require("./routes/trip");
+app.use(userTrips);
+
 app.get("/", async (req, res) => {
-  res.json("Welcome to the API of MyTrooperS");
+  res.json("Welcome to the API of HandleTrip");
 });
 
 app.all("*", (req, res) => {
